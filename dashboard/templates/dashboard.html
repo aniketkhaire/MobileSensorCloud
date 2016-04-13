@@ -1,22 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Mobile sensor cloud</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/static/dashboard_style.css">
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block stylesheet %}/static/dashboard_style.css{% endblock %}
 
-    <title>Dashboard</title>
-
-</head>
-
-<body>
-
+{% block body %}
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -168,6 +154,4 @@
 
     </div>
     <!-- /#wrapper -->
-</body>
-
-</html>
+{% endblock %}
