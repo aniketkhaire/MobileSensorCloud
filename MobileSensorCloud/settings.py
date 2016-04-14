@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user.apps.UserLoginConfig',
     'dashboard.apps.DashboardConfig',
+    'influxdb_metrics',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -122,3 +123,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+INFLUXDB_HOST = '127.0.0.1'
+INFLUXDB_PORT = '8086'
+INFLUXDB_USER = 'root'
+INFLUXDB_PASSWORD = 'root'
+INFLUXDB_DATABASE = 'SensorCloud'
+
+# This is for tagging the data sent to your influxdb instance so that you
+# can query by host
+INFLUXDB_TAGS_HOST = 'sensor_cloud'
+
+# Seconds to wait for the request to the influxdb server before timing out
+INFLUXDB_TIMEOUT = 60
+
+# Set this to True if you are using Celery
+INFLUXDB_USE_CELERY = False
+
+# Set this to True if you are not using Celery
+INFLUXDB_USE_THREADING = False

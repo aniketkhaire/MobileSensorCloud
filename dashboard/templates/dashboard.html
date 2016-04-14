@@ -88,7 +88,7 @@
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-striped">
+                                    <table id="sensor-list" class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>Sensor ID</th>
@@ -98,7 +98,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr class="clickable-row" id="sensor1">
                                                 <td>3326</td>
                                                 <td>San Fransisco Bay</td>
                                                 <td>Active</td>
@@ -107,7 +107,7 @@
                                                     <button class="btn-danger">Terminate</button>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr class="clickable-row" id="sensor2">
                                                 <td>3326</td>
                                                 <td>San Fransisco Bay</td>
                                                 <td>Active</td>
@@ -116,7 +116,7 @@
                                                     <button class="btn-danger">Terminate</button>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr class="clickable-row" id="sensor3">
                                                 <td>3326</td>
                                                 <td>San Fransisco Bay</td>
                                                 <td>Active</td>
@@ -125,7 +125,7 @@
                                                     <button class="btn-danger">Terminate</button>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr class="clickable-row" id="sensor4">
                                                 <td>3326</td>
                                                 <td>San Fransisco Bay</td>
                                                 <td>Active</td>
@@ -154,4 +154,10 @@
 
     </div>
     <!-- /#wrapper -->
+    <script>
+        $('#sensor-list').on('click', '.clickable-row', function(event) {
+            alert("hello");
+            $(this).addClass('table-row-color').siblings().removeClass('table-row-color');
+        });
+    </script>
 {% endblock %}
