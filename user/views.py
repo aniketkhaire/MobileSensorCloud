@@ -1,10 +1,7 @@
-import datetime
-
 from django.views.generic import View
 from user.forms import LoginForm, RegistrationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.conf import settings
 from MobileSensorCloud.utils import write_points
 
 class UserLoginView(View):
