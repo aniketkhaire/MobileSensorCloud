@@ -10,14 +10,23 @@ class UserDetails(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
 
+    def __str__(self):
+        return self.user_name
+
 class UserRoles(models.Model):
     role = models.CharField(max_length=30)
     description = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.role
 
 class LoginCredentials(models.Model):
     user_detail = models.ForeignKey(UserDetails, on_delete=models.CASCADE)
     user_role = models.ForeignKey(UserRoles, on_delete=models.CASCADE)
     password = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.user_detail
 
 class SensorTypes(models.Model):
     sensor_id = models.CharField(max_length=400)
@@ -26,7 +35,17 @@ class SensorTypes(models.Model):
     unit = models.CharField(max_length=50)
 
 class UserSensorData(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserDetails, on_delete=models.CASCADE)
+    sensor_name = models.CharField(max_length=200)
+    sensor_location = models.CharField(max_length=200)
+    sensor_type = models.CharField(max_length=200)
+    sensor_provider = models.CharField(max_length=200)
+    sensor_status = models.BooleanField()
+
+    def __str__(self):
+        return self.sensor_name
+
+class AvailableSensorData(models.Model):
     sensor_name = models.CharField(max_length=200)
     sensor_location = models.CharField(max_length=200)
     sensor_type = models.CharField(max_length=200)

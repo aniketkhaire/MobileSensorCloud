@@ -1,13 +1,17 @@
 from django.contrib.auth.models import User
 from django import forms
+from .models import UserDetails, LoginCredentials
 
 class LoginForm(forms.ModelForm):
     username = forms.CharField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
+    roles = [('sys_admin', 'Admin'), ('sensor_owner', 'Sensor Owner'), ('user', 'User')]
+
+    user_role = forms.ChoiceField(widget=forms.RadioSelect, choices=roles)
 
     class Meta:
-        model = User
-        fields = ['username', 'password',]
+        model = LoginCredentials
+        fields = ['username', 'password', 'user_role']
 
 class RegistrationForm(forms.ModelForm):
     name = forms.CharField(max_length=100)
@@ -15,6 +19,10 @@ class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     email = forms.EmailField()
 
+    roles = [('sys_admin', 'Admin'), ('sensor_owner', 'Sensor Owner'), ('user', 'User')]
+
+    user_role = forms.ChoiceField(widget=forms.RadioSelect, choices=roles)
+
     class Meta:
-        model = User
-        fields = ['name', 'username', 'password', 'email']
+        model = UserDetails
+        fields = ['name', 'username', 'password', 'email', 'user_role']

@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^user/', include('dashboard.urls')),
     url(r'^user/', include('monitor.urls')),
     url(r'^user/', include('manageSensors.urls')),
+    url(r'^sensor_owner/', include('sensor_owner.urls')),
 ]

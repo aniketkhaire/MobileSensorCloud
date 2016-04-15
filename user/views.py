@@ -3,7 +3,7 @@ from user.forms import LoginForm, RegistrationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from models import UserSensorData
+from models import UserSensorData, UserDetails, LoginCredentials, UserRoles
 
 class UserLoginView(View):
     form_class = LoginForm
@@ -23,18 +23,20 @@ class UserLoginView(View):
         print "Username entered"
         # To change password - user.set_password(password)
 
-        user = authenticate(username=username, password=password)
+        try:
+            user = LoginCredentials.objects.get(user_detail__user_name=username)
+            user_role = user.user_role
+        except LoginCredentials.DoesNotExist:
+            user = None
 
+        print "Username role "+ user_role.role
         if user is not None:
-            if user.is_active:
-                print "User authenticated trying to login"
-                login(request, user)
-
+            if user_role.role == "sensor_owner":
+                return render(request, 'sensor_owner_home.html', {})
+            else:
                 sensor_data = UserSensorData.objects.all().filter()
-
-                print "after sensor data"
-
                 return render(request, 'dashboard.html', {'sensor_data': sensor_data})
+
                 #This is logs in with session handling
                 #User request.user to get info
 
@@ -55,26 +57,50 @@ class RegistrationView(View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            user = form.save(commit=False)
+            user = UserDetails()
 
             # cleaned (normalized) data
             name = form.cleaned_data['name']
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             email = form.cleaned_data['email']
+            user_role = form.cleaned_data['user_role']
 
-            user.first_name = name
-            user.set_password(password)
+            user.user_name = username
+            user.name = name
+            user.user_role = user_role
+            user.email = email
             user.save()
+
+            loginCred = LoginCredentials()
+            loginCred.user_detail = user
+            loginCred.user_role = UserRoles.objects.get(role=user_role)
+            loginCred.password = password
+            loginCred.save()
+
             return redirect('user:login')
-            # To change password - user.set_password(password)
 
-            user = authenticate(username=username, password=password)
-
-            if user is not None:
-                if user.is_active:
-                    return redirect('user:login')
-                    #This is logs in with session handling
-                    #User request.user to get info
+        # if form.is_valid():
+        #     user = form.save(commit=False)
+        #
+        #     # cleaned (normalized) data
+        #     name = form.cleaned_data['name']
+        #     username = form.cleaned_data['username']
+        #     password = form.cleaned_data['password']
+        #     email = form.cleaned_data['email']
+        #
+        #     user.first_name = name
+        #     user.set_password(password)
+        #     user.save()
+        #     return redirect('user:login')
+        #     # To change password - user.set_password(password)
+        #
+        #     user = authenticate(username=username, password=password)
+        #
+        #     if user is not None:
+        #         if user.is_active:
+        #             return redirect('user:login')
+        #             #This is logs in with session handling
+        #             #User request.user to get info
 
         return render(request, self.template_name, {'form': form})
