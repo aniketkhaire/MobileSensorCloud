@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% block title %}Mobile Sensor Cloud{% endblock %}
+{% block stylesheet %}/static/monitor.css{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="dashboard">Mobile Sensor Cloud</a>
+            </div>
+            <!-- Top Menu Items -->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="message-preview">
+                        <a href="#">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="dashboard"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Overview</a>
+                    </li>
+                    <li class="active">
+                        <a href="monitor"><span class="glyphicon glyphicon-check"></span>&nbsp; Monitor</a>
+                    </li>
+                    <li>
+                        <a href="#"><span class="glyphicon glyphicon-check"></span>&nbsp; Analytics</a>
+                    </li>
+                    <li>
+                        <a href="manageSensors"><span class="glyphicon glyphicon-adjust"></span>&nbsp; Manage sensors</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Monitoring
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> Turbid234
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row" style="height: 450px">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <iframe src="http://130.206.113.89:3000/dashboard-solo/db/new-dashboard?panelId=1&fullscreen&edit&from=1432648032361&to=1434674541353&theme=light" class="col-lg-12" height="400" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="panel panel-default panel-success">
+                            <label class="h1">15</label>
+                            <label class="h3">Current Value</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="panel panel-default">
+                            <label class="h1">10</label>
+                            <label class="h3" style="text-align: right">Minimum</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="panel panel-default">
+                            <label class="h1">17</label>
+                            <label class="h3" style="text-align: right">Maximum</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="panel panel-default">
+                            <label class="h1">14</label>
+                            <label class="h3" style="text-align: right">Average</label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Subscribed sensors</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="sensor-list" class=" table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Sensor Name</th>
+                                                <th>Type</th>
+                                                <th>Location</th>
+                                                <th>Provider</th>
+                                                <th>Status</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="clickable-row" id="sensor1" >
+                                                <td>Turbid234</td>
+                                                <td>Turbidity</td>
+                                                <td>San Fransisco Bay</td>
+                                                <td>CenCOOS</td>
+                                                <td><button class="roundedge btn-success">Active</button></td>
+
+                                            </tr>
+                                            <tr class="clickable-row" id="sensor2">
+                                                <td>Temper541</td>
+                                                <td>Temperature</td>
+                                                <td>San Fransisco Bay</td>
+                                                <td>CenCOOS</td>
+                                                <td><button class="roundedge btn-success">Active</button></td>
+
+                                            </tr>
+                                            <tr class="clickable-row" id="sensor3">
+                                                <td>Turbid354</td>
+                                                <td>Turbidity</td>
+                                                <td>Trinidad Bay</td>
+                                                <td>COAST</td>
+                                                <td><button class="roundedge btn-danger">Inactive</button></td>
+
+                                            </tr>
+                                            <tr class="clickable-row" id="sensor4">
+                                                <td>Salin368</td>
+                                                <td>Salinity</td>
+                                                <td>San Fransisco Bay</td>
+                                                <td>Wearther Corp.</td>
+                                                <td><button class="roundedge btn-success">Active</button></td>
+
+                                            </tr>
+                                            <tr class="clickable-row" id="sensor5">
+                                                <td>Temper682</td>
+                                                <td>Temperature</td>
+                                                <td>Morro Bay</td>
+                                                <td>CenCOOS</td>
+                                                <td>
+                                                    <button class="roundedge btn-danger">Inactive</button>
+                                                </td>
+
+                                            </tr>
+                                            <tr class="clickable-row" id="sensor6">
+                                                <td>Elect234</td>
+                                                <td>Electrical Conductivity</td>
+                                                <td>Fort Point</td>
+                                                <td>CenCOOS</td>
+                                                <td><button class="roundedge btn-success">Active</button></td>
+
+                                            </tr>
+                                            <tr class="clickable-row" id="sensor7">
+                                                <td>Press234</td>
+                                                <td>Water Pressure</td>
+                                                <td>Carquinez</td>
+                                                <td>CenCOOS</td>
+                                                <td><button class="roundedge btn-danger">Inactive</button></td>
+
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <script>
+        $('#sensor-list').on('click', '.clickable-row', function(event) {
+            alert("hello");
+            $(this).addClass('table-row-color').siblings().removeClass('table-row-color');
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+{% endblock %}

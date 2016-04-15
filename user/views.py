@@ -2,7 +2,8 @@ from django.views.generic import View
 from user.forms import LoginForm, RegistrationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from MobileSensorCloud.utils import write_points
+from django.contrib.auth.models import User
+from models import UserSensorData
 
 class UserLoginView(View):
     form_class = LoginForm
@@ -16,24 +17,26 @@ class UserLoginView(View):
     # Submit form
     def post(self, request):
         form = self.form_class(request.POST)
+        # cleaned (normalized) data
+        username = request.POST['username']
+        password = request.POST['password']
+        print "Username entered"
+        # To change password - user.set_password(password)
 
-        if form.is_valid():
-            user = form.save(commit=False)
+        user = authenticate(username=username, password=password)
 
-            # cleaned (normalized) data
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user.save()
-            # To change password - user.set_password(password)
+        if user is not None:
+            if user.is_active:
+                print "User authenticated trying to login"
+                login(request, user)
 
-            user = authenticate(username=username, password=password)
+                sensor_data = UserSensorData.objects.all().filter()
 
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return redirect('dashboard:dashboard')
-                    #This is logs in with session handling
-                    #User request.user to get info
+                print "after sensor data"
+
+                return render(request, 'dashboard.html', {'sensor_data': sensor_data})
+                #This is logs in with session handling
+                #User request.user to get info
 
         return render(request, self.template_name, {'form': form})
 
@@ -47,22 +50,31 @@ class RegistrationView(View):
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
-    # Submit form
+   # Submit form
     def post(self, request):
         form = self.form_class(request.POST)
 
         if form.is_valid():
+            user = form.save(commit=False)
+
             # cleaned (normalized) data
             name = form.cleaned_data['name']
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             email = form.cleaned_data['email']
-            json_body = [{
-                'measurement': 'user_data',
-                'tags': {'username': username, },
-                'fields': {'name': name, 'password': password, 'email': email },
-                }]
-            write_points(json_body)
-            return redirect('dashboard:dashboard')
+
+            user.first_name = name
+            user.set_password(password)
+            user.save()
+            return redirect('user:login')
+            # To change password - user.set_password(password)
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                if user.is_active:
+                    return redirect('user:login')
+                    #This is logs in with session handling
+                    #User request.user to get info
 
         return render(request, self.template_name, {'form': form})
