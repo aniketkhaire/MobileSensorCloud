@@ -4,14 +4,6 @@ from django.views.generic import View
 from sensor_owner.forms import AddSensorForm
 from sensor_owner.models import SensorDetails
 
-
-
-def OwnerDashboard(request):
-    return render(request, 'sensor_owner_home.html', {})
-
-def OwnerManage(request):
-    return render(request, 'sensor_owner_manage.html', {})
-
 class ShowSensorsView(View):
     template_name='sensor_owner_home.html'
 

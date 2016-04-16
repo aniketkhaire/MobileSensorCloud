@@ -30,13 +30,13 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li>
                         <a href="{% url 'sensor_owner:ownerDashboard' %}"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Overview</a>
                     </li>
                     <li>
                         <a href="#"><span class="glyphicon glyphicon-check"></span>&nbsp; Monitor</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="{% url 'sensor_owner:ownerManage' %}"><span class="glyphicon glyphicon-adjust"></span>&nbsp; Manage sensors</a>
                     </li>
                 </ul>
@@ -76,7 +76,7 @@
                                         {% include 'form_template.html' %}
                                         <div class="form-group">
                                             <div class="col-sm-3">
-                                                <button type="submit" class="btn btn-success">Add Sensor</button>
+                                                <button id="btnSubmit" type="submit" class="btn btn-success">Add Sensor</button>
                                             </div>
                                         </div>
                                     </form>
@@ -104,7 +104,7 @@
                                                     <td>{{ sensor.station_desc }}</td>
                                                     <td>{{ sensor.latitude }}</td>
                                                     <td>{{ sensor.longitude }}</td>
-                                                    {% if sensor.active == 1 %}
+                                                    {% if sensor.active %}
                                                         <td>Active</td>
                                                     {% else %}
                                                         <td>Inactive</td>
@@ -156,6 +156,10 @@
         $('#sensor-list').on('click', '.clickable-row', function(event) {
             alert($(this).attr('id')+' was clicked');
             $(this).addClass('table-row-color').siblings().removeClass('table-row-color');
+        });
+
+        $('#btnSubmit').on('click', function(event) {
+            alert('Sensor added successfully');
         });
     </script>
 {% endblock %}

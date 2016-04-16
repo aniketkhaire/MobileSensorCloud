@@ -20,6 +20,7 @@ class UserLoginView(View):
         # cleaned (normalized) data
         username = request.POST['username']
         password = request.POST['password']
+        user_role = request.POST['user_role']
         print "Username entered"
         # To change password - user.set_password(password)
 
@@ -32,7 +33,9 @@ class UserLoginView(View):
         print "Username role "+ user_role.role
         if user is not None:
             if user_role.role == "sensor_owner":
-                return render(request, 'sensor_owner_home.html', {})
+                return redirect('sensor_owner:ownerDashboard')
+            elif user_role.role == "sys_admin":
+                return redirect('sensor_admin:sensor_admin')
             else:
                 sensor_data = UserSensorData.objects.all().filter()
                 return render(request, 'dashboard.html', {'sensor_data': sensor_data})

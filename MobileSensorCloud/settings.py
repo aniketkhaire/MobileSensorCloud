@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'monitor.apps.MonitorConfig',
     'manageSensors.apps.ManagesensorsConfig',
     'sensor_owner.apps.SensorOwnerConfig',
+    'sensor_admin.apps.SensorAdminConfig',
     'influxdb_metrics',
 ]
 
