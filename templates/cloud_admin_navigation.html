@@ -1,0 +1,38 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="dashboard">Mobile Sensor Cloud</a>
+</div>
+<!-- Top Menu Items -->
+<div class="collapse navbar-collapse">
+    <ul class="nav navbar-nav navbar-right">
+        <li class="message-preview">
+            <a href="{% url 'user:logout' %}">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;Logout
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+        <li class="{% if request.resolver_match.url_name == "cloud_admin" %}active{% endif %}">
+            <a href="overview"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Overview</a>
+        </li>
+        <li class="{% if request.resolver_match.url_name == "manage_users" %}active{% endif %}">
+            <a href="manage_users"><span class="glyphicon glyphicon-check"></span>&nbsp; Manage Users</a>
+        </li>
+        <li class="{% if request.resolver_match.url_name == "manage_sensors" %}active{% endif %}">
+            <a href="manage_sensors"><span class="glyphicon glyphicon-check"></span>&nbsp; Manage Sensors</a>
+        </li>
+    </ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>

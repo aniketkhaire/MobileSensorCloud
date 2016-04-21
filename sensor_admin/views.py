@@ -1,8 +1,14 @@
 from django.shortcuts import render
-from user.models import UserSensorData
 
 # Create your views here.
 
 def sensorAdmin(request):
-    sensor_data = UserSensorData.objects.all().filter()
-    return render(request, 'admin.html', {'sensor_data':sensor_data})
+    #sensor_data = UserSensor.objects.all().filter()
+    return render(request, 'admin.html', {})
+
+def manageAvailableSensors(request):
+    #sensor_data = UserSensor.objects.all().filter()
+    return render(request, 'manage_sensors.html', {})
+
+def manageAvailableUsers(request):
+    return render(request, 'manage_users.html', {})

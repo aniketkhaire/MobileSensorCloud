@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class SensorDetails(models.Model):
     station = models.CharField(max_length=400)
     station_desc = models.CharField(max_length=800)
