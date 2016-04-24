@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="sensor_owner_home.html">Mobile Sensor Cloud</a>
+        <a class="navbar-brand" href="{% url 'sensor_owner:owner_dashboard' %}">Mobile Sensor Cloud</a>
     </div>
     <!-- Top Menu Items -->
     <div class="collapse navbar-collapse">
@@ -23,14 +23,14 @@
     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-            <li class="{% if request.resolver_match.url_name == "ownerDashboard" %}active{% endif %}">
-                <a href="{% url 'sensor_owner:ownerDashboard' %}"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Overview</a>
+            <li class="{% if request.resolver_match.url_name == "owner_dashboard" %}active{% endif %}">
+                <a href="{% url 'sensor_owner:owner_dashboard' %}"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Overview</a>
             </li>
             <li class="{% if request.resolver_match.url_name == "" %}active{% endif %}">
                 <a href="#"><span class="glyphicon glyphicon-check"></span>&nbsp; Monitor</a>
             </li>
-            <li class="{% if request.resolver_match.url_name == "ownerManage" %}active{% endif %}">
-                <a href="{% url 'sensor_owner:ownerManage' %}"><span class="glyphicon glyphicon-adjust"></span>&nbsp; Manage sensors</a>
+            <li class="{% if request.resolver_match.url_name == "owner_manage" %}active{% endif %}">
+                <a href="{% url 'sensor_owner:owner_manage' %}"><span class="glyphicon glyphicon-adjust"></span>&nbsp; Manage sensors</a>
             </li>
         </ul>
     </div>

@@ -22,10 +22,11 @@
                                     <table id="sensor-list" class=" table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Sensor Name</th>
-                                                <th>Type</th>
+                                                <th>Sensor ID</th>
+                                                <th>Sensor Type</th>
                                                 <th>Location</th>
-                                                <th>Provider</th>
+                                                <th>Latitude</th>
+                                                <th>Longitude</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -33,18 +34,21 @@
                                         <tbody>
                                             {% if user_sensors %}
                                                 {% for sensor in user_sensors %}
-                                                    {% if sensor.sensor_status %}
-                                                        <tr class="clickable-row" id="{{ forloop.counter }}">
-                                                        <td>{{ sensor.sensor_name }}</td>
-                                                        <td>{{ sensor.sensor_type }}</td>
-                                                        <td>{{ sensor.sensor_location }}</td>
-                                                        <td>{{ sensor.sensor_provider }}</td>
-                                                         <td><button class="roundedge btn-success">Active</button></td>
+                                                    <tr class="clickable-row" id="{{ forloop.counter }}">
+                                                        <td>{{ sensor.sensor_id.sensor_id}}</td>
+                                                        <td>{{ sensor.sensor_id.sensor_type }}</td>
+                                                        <td>{{ sensor.sensor_id.location }}</td>
+                                                        <td>{{ sensor.sensor_id.latitude }}</td>
+                                                        <td>{{ sensor.sensor_id.longitude }}</td>
+                                                        {% if sensor.sensor_id.active %}
+                                                            <td class="text-success"><strong>Active</strong></td>
+                                                        {% else %}
+                                                            <td class="text-danger"><strong>Inactive</strong></td>
+                                                        {% endif %}
                                                         <td>
-                                                            <a href="{% url 'manageSensors:deleteSensor' sensor.id %}" class="btn btn-primary btn-sm roundedge btn-danger" role="button">Unsubscribe</a>
+                                                            <a href="{% url 'manage_sensors:delete_sensor' sensor.id %}" class="btn btn-primary btn-sm roundedge btn-danger" role="button">Unsubscribe</a>
                                                         </td>
                                                     </tr>
-                                                    {% endif %}
                                                 {% endfor %}
                                             {% endif %}
                                         </tbody>
@@ -61,15 +65,17 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Available sensors</h3>
                             </div>
+                            <!--<div class="float-right"><i class="text-danger">Already subscribed</i></div>-->
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table id="sensor-list" class=" table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Sensor Name</th>
-                                                <th>Type</th>
+                                                <th>Sensor ID</th>
+                                                <th>Sensor Type</th>
                                                 <th>Location</th>
-                                                <th>Provider</th>
+                                                <th>Latitude</th>
+                                                <th>Longitude</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -77,18 +83,21 @@
                                         <tbody>
                                             {% if available_sensors %}
                                                 {% for sensor in available_sensors %}
-                                                    {% if sensor.sensor_status %}
-                                                        <tr class="clickable-row" id="{{ forloop.counter }}">
-                                                         <td>{{ sensor.sensor_name }}</td>
-                                                         <td>{{ sensor.sensor_type }}</td>
-                                                         <td>{{ sensor.sensor_location }}</td>
-                                                         <td>{{ sensor.sensor_provider }}</td>
-                                                         <td><button class="roundedge btn-success">Active</button></td>
+                                                    <tr class="clickable-row" id="{{ forloop.counter }}">
+                                                        <td>{{ sensor.sensor_id }}</td>
+                                                        <td>{{ sensor.sensor_type }}</td>
+                                                        <td>{{ sensor.location }}</td>
+                                                        <td>{{ sensor.latitude }}</td>
+                                                        <td>{{ sensor.longitude }}</td>
+                                                        {% if sensor.active %}
+                                                            <td class="text-success"><strong>Active</strong></td>
+                                                        {% else %}
+                                                            <td class="text-danger"><strong>Inactive</strong></td>
+                                                        {% endif %}
                                                         <td>
-                                                            <a href="{% url 'manageSensors:addSensor' sensor.id %}" class="btn btn-primary btn-sm roundedge btn-success" role="button">Subscribe</a>
+                                                            <a href="{% url 'manage_sensors:add_sensor' sensor.id %}" class="btn btn-primary btn-sm roundedge btn-success" role="button">Subscribe</a>
                                                         </td>
                                                     </tr>
-                                                    {% endif %}
                                                 {% endfor %}
                                             {% endif %}
                                         </tbody>
@@ -99,16 +108,10 @@
                     </div>
                 </div>
                 <!-- /.row -->
-
-
-
-
             </div>
             <!-- /.container-fluid -->
-
         </div>
         <!-- /#page-wrapper -->
-
     </div>
     <!-- /#wrapper -->
     <script>

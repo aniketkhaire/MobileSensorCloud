@@ -46,41 +46,8 @@
                                 </div>
                                 <div id="divRemoveSensor">
                                     <div class="table-responsive">
-                                    <table id="sensor-list" class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Sensor ID</th>
-                                            <th>Type</th>
-                                            <th>Description</th>
-                                            <th>Latitude</th>
-                                            <th>Longitude</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       {% if available_sensors %}
-                                           {% for sensor in available_sensors %}
-                                                <tr class="clickable-row" id="{{ forloop.counter }}">
-                                                    <td>{{ sensor.station }}</td>
-                                                    <td>{{ sensor.sensor_type }}</td>
-                                                    <td>{{ sensor.station_desc }}</td>
-                                                    <td>{{ sensor.latitude }}</td>
-                                                    <td>{{ sensor.longitude }}</td>
-                                                    {% if sensor.active %}
-                                                        <td>Active</td>
-                                                    {% else %}
-                                                        <td>Inactive</td>
-                                                    {% endif %}
-                                                   <td>
-                                                       <button class="roundedge btn-danger">Terminate</button>
-                                                   </td>
-                                               </tr>
-                                           {% endfor %}
-                                        {% endif %}
-                                    </tbody>
-                                </table>
-                            </div>
+                                        {% include 'sensor_display_table.html' %}
+                                    </div>
                                 </div>
                             </div>
                         </div>

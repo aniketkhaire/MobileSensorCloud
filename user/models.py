@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
+from sensor_owner.models import SensorDetail
 
 # Create your models here.
 
@@ -21,3 +22,8 @@ class UserRole(models.Model):
 
     def __str__(self):
         return self.role
+
+
+class UserSensorDetail(models.Model):
+    user_name = models.ForeignKey(User, on_delete=models.CASCADE)
+    sensor_id = models.ForeignKey(SensorDetail, on_delete=models.CASCADE)

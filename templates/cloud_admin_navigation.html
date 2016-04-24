@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="dashboard">Mobile Sensor Cloud</a>
+    <a class="navbar-brand" href="{% url 'cloud_admin:cloud_admin' %}">Mobile Sensor Cloud</a>
 </div>
 <!-- Top Menu Items -->
 <div class="collapse navbar-collapse">
@@ -24,13 +24,13 @@
 <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav side-nav">
         <li class="{% if request.resolver_match.url_name == "cloud_admin" %}active{% endif %}">
-            <a href="overview"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Overview</a>
+            <a href="{% url 'cloud_admin:cloud_admin' %}"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Overview</a>
         </li>
         <li class="{% if request.resolver_match.url_name == "manage_users" %}active{% endif %}">
-            <a href="manage_users"><span class="glyphicon glyphicon-check"></span>&nbsp; Manage Users</a>
+            <a href="{% url 'cloud_admin:manage_users' %}"><span class="glyphicon glyphicon-check"></span>&nbsp; Manage Users</a>
         </li>
         <li class="{% if request.resolver_match.url_name == "manage_sensors" %}active{% endif %}">
-            <a href="manage_sensors"><span class="glyphicon glyphicon-check"></span>&nbsp; Manage Sensors</a>
+            <a href="{% url 'cloud_admin:manage_sensors' %}"><span class="glyphicon glyphicon-check"></span>&nbsp; Manage Sensors</a>
         </li>
     </ul>
 </div>

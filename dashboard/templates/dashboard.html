@@ -31,10 +31,9 @@
                                     <table id="sensor-list" class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Sensor Name</th>
+                                                <th>Sensor ID</th>
                                                 <th>Type</th>
                                                 <th>Location</th>
-                                                <th>Provider</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -42,14 +41,13 @@
                                             {% if sensor_data %}
                                                 {% for sensor in sensor_data %}
                                                      <tr class="clickable-row" id="{{ forloop.counter }}">
-                                                        <td>{{ sensor.sensor_name }}</td>
-                                                        <td>{{ sensor.sensor_type }}</td>
-                                                        <td>{{ sensor.sensor_location }}</td>
-                                                        <td>{{ sensor.sensor_provider }}</td>
-                                                         {% if sensor.sensor_status %}
-                                                            <td><button class="roundedge btn-success">Active</button></td>
+                                                        <td>{{ sensor.sensor_id.sensor_id }}</td>
+                                                        <td>{{ sensor.sensor_id.sensor_type }}</td>
+                                                        <td>{{ sensor.sensor_id.location }}</td>
+                                                         {% if sensor.sensor_id.active%}
+                                                            <td class="text-success"><strong>Active</strong></td>
                                                          {% else %}
-                                                            <td><button class="roundedge btn-danger">Inactive</button>	</td>
+                                                            <td class="text-danger"><strong>Inactive</strong></td>
                                                          {% endif %}
                                                     </tr>
                                                 {% endfor %}
@@ -58,7 +56,7 @@
                                     </table>
                                 </div>
                                 <div class="text-right">
-                                    <a href="manageSensors">View All Sensors <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="{% url 'manage_sensors:manage_sensors' %}">View All Sensors <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +89,7 @@
     </div>
     <!-- /#wrapper -->
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="/static/dashboard.js"></script>
+    <script id="map-script" src="/static/dashboard.js" location-data="{{ latlongdata }}"></script>
     <script>
         $('#sensor-list').on('click', '.clickable-row', function(event) {
             $(this).addClass('table-row-color').siblings().removeClass('table-row-color');
