@@ -33,7 +33,7 @@
                 <a href="#"><span class="glyphicon glyphicon-check"></span>&nbsp; Analytics</a>
             </li>
             <li class="{% if request.resolver_match.url_name == "manage_sensors" %}active{% endif %}">
-                <a href="{% url 'manage_sensors:manage_sensors' %}"><span class="glyphicon glyphicon-adjust"></span>&nbsp; Manage sensors</a>
+                <a href="{% url 'manage_sensors:manage' %}"><span class="glyphicon glyphicon-adjust"></span>&nbsp; Manage sensors</a>
             </li>
         </ul>
     </div>

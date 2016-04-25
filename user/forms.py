@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django import forms
+from .models import UserDetail
 
 
 class LoginForm(forms.ModelForm):
@@ -17,10 +18,12 @@ class LoginForm(forms.ModelForm):
     def clean(self):
         username = self.cleaned_data.get('username', None)
         password = self.cleaned_data.get('password', None)
-        print "Username and password "  + username + password
+        role = self.cleaned_data.get('user_role', None)
         user = authenticate(username=username, password=password)
         if user is None:
             raise forms.ValidationError("Username or Password is incorrect")
+        if not UserDetail.objects.filter(user_name=username, user_role=role).exists():
+            raise forms.ValidationError("Invalid user role")
         return self.cleaned_data
 
 class RegistrationForm(forms.ModelForm):

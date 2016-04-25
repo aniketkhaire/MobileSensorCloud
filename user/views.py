@@ -25,15 +25,14 @@ class UserLoginView(View):
             password = form.cleaned_data['password']
             user_role = form.cleaned_data['user_role']
 
-            role = UserRole.objects.get(role=user_role)
             user = authenticate(username=username, password=password)
 
-            if user is not None and role is not None:
+            if user is not None and UserDetail.objects.filter(user_name=username, user_role=user_role).exists():
                 if user.is_active:
                     login(request, user)
-                    if role.role == "sensor_owner":
-                        return redirect('sensor_owner:ownerDashboard')
-                    elif role.role == "sys_admin":
+                    if user_role == "sensor_owner":
+                        return redirect('sensor_owner:owner_dashboard')
+                    elif user_role == "sys_admin":
                         return redirect('sensor_admin:sensor_admin')
                     else:
                         print "Redirecting User"

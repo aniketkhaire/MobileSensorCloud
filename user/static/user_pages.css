@@ -61,6 +61,11 @@ body {
     background-color: #000;
 }
 
+.roundedge{
+    border: 1px solid ;
+    border-radius: 10px;
+}
+
 .top-nav>.open>.dropdown-menu {
     float: left;
     position: absolute;

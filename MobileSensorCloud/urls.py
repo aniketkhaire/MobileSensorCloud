@@ -1,5 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -11,3 +12,5 @@ urlpatterns = [
     url(r'^sensor_admin/', include('sensor_admin.urls')),
     url(r'^chaining/', include('smart_selects.urls')),
 ]
+
+urlpatterns += staticfiles_urlpatterns()

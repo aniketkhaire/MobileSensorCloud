@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Mobile Sensor Cloud{% endblock %}
-{% block stylesheet %}/static/user_pages.css{% endblock %}
+{% block stylesheet %}/static/dashboard_style.css{% endblock %}
 
 {% block body %}
     <div id="wrapper">
 
-        {% include 'user_navigation.html' %}
+        {% include 'cloud_admin_navigation.html' %}
 
         {% if error_message %}
             {% include 'error_display.html' %}
@@ -29,11 +29,10 @@
                                     <table id="sensor-list" class=" table table-bordered">
                                         <thead>
                                             <tr>
+                                                <th>Username</th>
                                                 <th>Sensor ID</th>
                                                 <th>Sensor Type</th>
                                                 <th>Location</th>
-                                                <th>Latitude</th>
-                                                <th>Longitude</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -42,19 +41,24 @@
                                             {% if user_sensors %}
                                                 {% for sensor in user_sensors %}
                                                     <tr class="clickable-row" id="{{ forloop.counter }}">
+                                                        <td>{{ sensor.user_name.username}}</td>
                                                         <td>{{ sensor.sensor_id.sensor_id}}</td>
                                                         <td>{{ sensor.sensor_id.sensor_type }}</td>
                                                         <td>{{ sensor.sensor_id.location }}</td>
-                                                        <td>{{ sensor.sensor_id.latitude }}</td>
-                                                        <td>{{ sensor.sensor_id.longitude }}</td>
                                                         {% if sensor.sensor_id.active %}
                                                             <td class="text-success"><strong>Active</strong></td>
                                                         {% else %}
                                                             <td class="text-danger"><strong>Inactive</strong></td>
                                                         {% endif %}
+                                                        {% if sensor.sensor_id.active %}
                                                         <td>
-                                                            <a href="{% url 'manage_sensors:delete' sensor.id %}" class="btn btn-primary btn-sm roundedge btn-danger" role="button">Unsubscribe</a>
+                                                            <a href="" class="btn btn-primary btn-sm roundedge btn-danger" role="button">Deactivate</a>
                                                         </td>
+                                                        {% else %}
+                                                            </td>
+                                                                <a href="" class="btn btn-primary btn-sm roundedge btn-success" role="button">Activate</a>
+                                                            </td>
+                                                        {% endif %}
                                                     </tr>
                                                 {% endfor %}
                                             {% endif %}
@@ -101,9 +105,15 @@
                                                         {% else %}
                                                             <td class="text-danger"><strong>Inactive</strong></td>
                                                         {% endif %}
-                                                        <td>
-                                                            <a href="{% url 'manage_sensors:add' sensor.id %}" class="btn btn-primary btn-sm roundedge btn-success" role="button">Subscribe</a>
-                                                        </td>
+                                                        {% if sensor.active %}
+                                                            <td>
+                                                                <a href="" class="btn btn-primary btn-sm roundedge btn-danger" role="button">Deactivate</a>
+                                                            </td>
+                                                        {% else %}
+                                                            </td>
+                                                                <a href="" class="btn btn-primary btn-sm roundedge btn-success" role="button">Activate</a>
+                                                            </td>
+                                                        {% endif %}
                                                     </tr>
                                                 {% endfor %}
                                             {% endif %}

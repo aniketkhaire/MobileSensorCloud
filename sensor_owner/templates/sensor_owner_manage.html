@@ -7,6 +7,10 @@
 
         {% include 'sensor_owner_navigation.html' %}
 
+        {% if success_message %}
+            {% include 'success_display.html' %}
+        {% endif %}
+
         <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -86,10 +90,6 @@
         $('#sensor-list').on('click', '.clickable-row', function(event) {
             alert($(this).attr('id')+' was clicked');
             $(this).addClass('table-row-color').siblings().removeClass('table-row-color');
-        });
-
-        $('#btnSubmit').on('click', function(event) {
-            alert('Sensor added successfully');
         });
     </script>
 {% endblock %}

@@ -50,7 +50,8 @@ class AddSensorView(View):
             sensor.save()
             form = self.form_class(None)
         available_sensors = SensorDetail.objects.filter(sensorOwner=request.user)
-        return render(request, self.template_name, {'form': form,'isSuccess':'yes','available_sensors':available_sensors})
+        return render(request, self.template_name, {'form': form, 'available_sensors':available_sensors,
+                                                    'success_message': 'Sensor added successfully'})
 
     def get_sensor_Id(self):
         sensor_present = True
