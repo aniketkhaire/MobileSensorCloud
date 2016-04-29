@@ -10,8 +10,7 @@ class AddSensorForm(forms.ModelForm):
     latitude = forms.CharField(max_length=10)
     longitude = forms.CharField(max_length=10)
     url = forms.CharField(max_length=800)
-    ip_address = forms.CharField(max_length=200)
 
     class Meta:
         model = SensorDetail
-        fields = ['station_name', 'station_desc', 'sensor_type', 'sensor_unit', 'active', 'location', 'latitude', 'longitude', 'url', 'ip_address']
+        fields = ['station_name', 'station_desc', 'sensor_type', 'sensor_unit', 'active', 'location', 'latitude', 'longitude', 'url']

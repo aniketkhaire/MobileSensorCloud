@@ -46,7 +46,6 @@ class AddSensorView(View):
             sensor.location = form.cleaned_data['location']
             sensor.url = form.cleaned_data['url']
             sensor.sensorOwner = request.user
-            sensor.ip_address = form.cleaned_data['ip_address']
             sensor.save()
             form = self.form_class(None)
         available_sensors = SensorDetail.objects.filter(sensorOwner=request.user)
