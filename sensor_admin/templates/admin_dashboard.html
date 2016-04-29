@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block title %}Mobile Sensor Cloud{% endblock %}
+{% block stylesheet %}/static/dashboard_style.css{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+
+        {% include 'cloud_admin_navigation.html' %}
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Dashboard <small>Statistics Overview</small>
+                        </h1>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div id="piechart" style="width: 400px; height: 200px;"></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="piechart1" style="width: 400px; height: 200px;"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-offset-3 col-lg-9">
+                        <div id="piechart2" style="width: 400px; height: 200px;"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Sensors</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="sensor-list" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Sensor ID</th>
+                                                <th>Type</th>
+                                                <th>Location</th>
+                                                <th>Latitude</th>
+                                                <th>Longitude</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if sensor_data %}
+                                                {% for sensor in sensor_data %}
+                                                     <tr class="clickable-row" id="{{ forloop.counter }}">
+                                                        <td>{{ sensor.sensor_id }}</td>
+                                                        <td>{{ sensor.sensor_type }}</td>
+                                                        <td>{{ sensor.location }}</td>
+                                                        <td>{{ sensor.latitude}}</td>
+                                                        <td>{{ sensor.longitude}}</td>
+                                                         {% if sensor.active %}
+                                                            <td class="text-success"><strong>Active</strong></td>
+                                                         {% else %}
+                                                            <td class="text-danger"><strong>Inactive</strong></td>
+                                                         {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Location of available sensors</h3>
+                        </div>
+                        <div class="panel-body">
+                           <div id="map_wrapper">
+                               <div id="map_canvas" class="mapping">
+
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script id="map-script" src="/static/dashboard.js" location-data="{{ latlongdata }}"></script>
+    <script>
+        $('#sensor-list').on('click', '.clickable-row', function(event) {
+            $(this).addClass('table-row-color').siblings().removeClass('table-row-color');
+        });
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+          var val = {{ sensor_types | safe }};
+          console.log(val)
+        var data = google.visualization.arrayToDataTable(val);
+
+           var data1 = google.visualization.arrayToDataTable([
+          ["Sensor", "Status"],
+          ["Active",     20],
+          ["Inactive",      4],
+        ]);
+
+          var data2 = google.visualization.arrayToDataTable([
+          ['Sensor', 'User count'],
+          ['Temperature',     10],
+          ['Turbidity',      5],
+          ['Salinity',  5],
+          ['Pressure', 4]
+        ]);
+
+        var options = {
+          title: 'Sensor types/Count'
+        };
+
+          var options1 = {
+          title: 'Sensor status/Count'
+        };
+
+          var options2 = {
+          title: 'User-Sensor Count'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+
+          var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
+
+        chart.draw(data1, options);
+
+          var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+        chart.draw(data2, options);
+      }
+    </script>
+
+{% endblock %}

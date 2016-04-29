@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block title %}Mobile Sensor Cloud{% endblock %}
+{% block stylesheet %}/static/dashboard_style.css{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+
+        {% include 'cloud_admin_navigation.html' %}
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Users</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="sensor-list" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Subscribed sensor</th>
+                                                <th>Amount Due</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="clickable-row" id="sensor2">
+                                                <td>Prasanna Gajbhiye</td>
+                                                <td>prasanna.gajhiye@gmail.com</td>
+                                                <td>7</td>
+                                                <td>$100</td>
+                                                <td>
+                                                    <button class="roundedge btn-success">Edit</button>
+                                                    <button class="roundedge btn-danger">Delete</button>
+                                                </td>
+                                            </tr>
+                                            <tr class="clickable-row" id="sensor2">
+                                                <td>Prerana Gajbhiye</td>
+                                                <td>prerana.gajhiye@gmail.com</td>
+                                                <td>2</td>
+                                                <td>$10</td>
+                                                <td>
+                                                    <button class="roundedge btn-success">Edit</button>
+                                                    <button class="roundedge btn-danger">Delete</button>
+                                                </td>
+                                            </tr>
+                                            <tr class="clickable-row" id="sensor2">
+                                                <td>Rachana Gajbhiye</td>
+                                                <td>rachana.gajhiye@gmail.com</td>
+                                                <td>3</td>
+                                                <td>$12</td>
+                                                <td>
+                                                    <button class="roundedge btn-success">Edit</button>
+                                                    <button class="roundedge btn-danger">Delete</button>
+                                                </td>
+                                            </tr>
+                                            <tr class="clickable-row" id="sensor2">
+                                                <td>Rishiraj Randive</td>
+                                                <td>rishiraj.randive@gmail.com</td>
+                                                <td>5</td>
+                                                <td>$50</td>
+                                                <td>
+                                                    <button class="roundedge btn-success">Edit</button>
+                                                    <button class="roundedge btn-danger">Delete</button>
+                                                </td>
+                                            </tr>
+                                            <tr class="clickable-row" id="sensor2">
+                                                <td>Aniket Khaire</td>
+                                                <td>aniket.khaire@gmail.com</td>
+                                                <td>5</td>
+                                                <td>$100</td>
+                                                <td>
+                                                    <button class="roundedge btn-success">Edit</button>
+                                                    <button class="roundedge btn-danger">Delete</button>
+                                                </td>
+                                            </tr>
+                                            <tr class="clickable-row" id="sensor2">
+                                                <td>Gaurav Buche</td>
+                                                <td>gaurav.buche@gmail.com</td>
+                                                <td>2</td>
+                                                <td>$50</td>
+                                                <td>
+                                                    <button class="roundedge btn-success">Edit</button>
+                                                    <button class="roundedge btn-danger">Delete</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="/static/dashboard.js"></script>
+    <script>
+        $('#sensor-list').on('click', '.clickable-row', function(event) {
+            $(this).addClass('table-row-color').siblings().removeClass('table-row-color');
+        });
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Sensor', 'Count'],
+          ['Temperature',     11],
+          ['Turbidity',      2],
+          ['Salinity',  2],
+          ['Pressure', 2],
+          ['Electrical Conductivity',    7]
+        ]);
+
+           var data1 = google.visualization.arrayToDataTable([
+          ['Sensor', 'Status'],
+          ['Active',     11],
+          ['Inactive',      2],
+        ]);
+
+          var data2 = google.visualization.arrayToDataTable([
+          ['Sensor', 'User count'],
+          ['Temperature',     21],
+          ['Turbidity',      8],
+          ['Salinity',  5],
+          ['Pressure', 17],
+          ['Electrical Conductivity',    7]
+        ]);
+
+        var options = {
+          title: 'Sensor types/Count'
+        };
+
+          var options1 = {
+          title: 'Sensor status/Count'
+        };
+
+          var options2 = {
+          title: 'User-Sensor Count'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+
+          var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
+
+        chart.draw(data1, options);
+
+          var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+        chart.draw(data2, options);
+      }
+    </script>
+
+{% endblock %}

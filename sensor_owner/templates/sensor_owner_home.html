@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Sensor Owner Dashboard{% endblock %}
+{% block stylesheet %}/static/sensor_owner_style.css{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+
+        {% include 'sensor_owner_navigation.html' %}
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Dashboard <small>Statistics Overview</small>
+                        </h1>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Owned sensors</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    {% include 'sensor_display_table.html' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <script>
+        $('#sensor-list').on('click', '.clickable-row', function(event) {
+            alert($(this).attr('id')+' was clicked');
+            $(this).addClass('table-row-color').siblings().removeClass('table-row-color');
+        });
+    </script>
+{% endblock %}

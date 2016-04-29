@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block title %}Mobile Sensor Cloud{% endblock %}
+{% block stylesheet %}/static/dashboard_style.css{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+
+        {% include 'cloud_admin_navigation.html' %}
+
+        {% if error_message %}
+            {% include 'error_display.html' %}
+        {% endif %}
+        {% if success_message %}
+            {% include 'success_display.html' %}
+        {% endif %}
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Subscribed sensors</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="sensor-list" class=" table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Username</th>
+                                                <th>Sensor ID</th>
+                                                <th>Sensor Type</th>
+                                                <th>Location</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if user_sensors %}
+                                                {% for sensor in user_sensors %}
+                                                    <tr class="clickable-row" id="{{ forloop.counter }}">
+                                                        <td>{{ sensor.user_name.username}}</td>
+                                                        <td>{{ sensor.sensor_id.sensor_id}}</td>
+                                                        <td>{{ sensor.sensor_id.sensor_type }}</td>
+                                                        <td>{{ sensor.sensor_id.location }}</td>
+                                                        {% if sensor.sensor_id.active %}
+                                                            <td class="text-success"><strong>Active</strong></td>
+                                                        {% else %}
+                                                            <td class="text-danger"><strong>Inactive</strong></td>
+                                                        {% endif %}
+                                                        {% if sensor.sensor_id.active %}
+                                                        <td>
+                                                            <a href="" class="btn btn-primary btn-sm roundedge btn-danger" role="button">Deactivate</a>
+                                                        </td>
+                                                        {% else %}
+                                                            </td>
+                                                                <a href="" class="btn btn-primary btn-sm roundedge btn-success" role="button">Activate</a>
+                                                            </td>
+                                                        {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Available sensors</h3>
+                            </div>
+                            <!--<div class="float-right"><i class="text-danger">Already subscribed</i></div>-->
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="sensor-list" class=" table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Sensor ID</th>
+                                                <th>Sensor Type</th>
+                                                <th>Location</th>
+                                                <th>Latitude</th>
+                                                <th>Longitude</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if available_sensors %}
+                                                {% for sensor in available_sensors %}
+                                                    <tr class="clickable-row" id="{{ forloop.counter }}">
+                                                        <td>{{ sensor.sensor_id }}</td>
+                                                        <td>{{ sensor.sensor_type }}</td>
+                                                        <td>{{ sensor.location }}</td>
+                                                        <td>{{ sensor.latitude }}</td>
+                                                        <td>{{ sensor.longitude }}</td>
+                                                        {% if sensor.active %}
+                                                            <td class="text-success"><strong>Active</strong></td>
+                                                        {% else %}
+                                                            <td class="text-danger"><strong>Inactive</strong></td>
+                                                        {% endif %}
+                                                        {% if sensor.active %}
+                                                            <td>
+                                                                <a href="" class="btn btn-primary btn-sm roundedge btn-danger" role="button">Deactivate</a>
+                                                            </td>
+                                                        {% else %}
+                                                            </td>
+                                                                <a href="" class="btn btn-primary btn-sm roundedge btn-success" role="button">Activate</a>
+                                                            </td>
+                                                        {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <script>
+        $('#sensor-list').on('click', '.clickable-row', function(event) {
+            $(this).addClass('table-row-color').siblings().removeClass('table-row-color');
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+{% endblock %}

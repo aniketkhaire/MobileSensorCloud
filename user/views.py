@@ -1,9 +1,10 @@
 from django.views.generic import View
 from user.forms import LoginForm, RegistrationForm
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from models import UserSensorData
+from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login, logout
+from models import UserDetail, UserRole
+
 
 class UserLoginView(View):
     form_class = LoginForm
@@ -17,26 +18,26 @@ class UserLoginView(View):
     # Submit form
     def post(self, request):
         form = self.form_class(request.POST)
-        # cleaned (normalized) data
-        username = request.POST['username']
-        password = request.POST['password']
-        print "Username entered"
-        # To change password - user.set_password(password)
 
-        user = authenticate(username=username, password=password)
+        if form.is_valid():
+            # cleaned (normalized) data
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user_role = form.cleaned_data['user_role']
 
-        if user is not None:
-            if user.is_active:
-                print "User authenticated trying to login"
-                login(request, user)
+            user = authenticate(username=username, password=password)
 
-                sensor_data = UserSensorData.objects.all().filter()
-
-                print "after sensor data"
-
-                return render(request, 'dashboard.html', {'sensor_data': sensor_data})
-                #This is logs in with session handling
-                #User request.user to get info
+            if user is not None and UserDetail.objects.filter(user_name=username, user_role=user_role).exists():
+                if user.is_active:
+                    login(request, user)
+                    if user_role == "sensor_owner":
+                        return redirect('sensor_owner:owner_dashboard')
+                    elif user_role == "sys_admin":
+                        return redirect('sensor_admin:sensor_admin')
+                    else:
+                        print "Redirecting User"
+                        url = reverse("dashboard:dashboard")
+                        return redirect(url)
 
         return render(request, self.template_name, {'form': form})
 
@@ -62,19 +63,28 @@ class RegistrationView(View):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             email = form.cleaned_data['email']
+            user_role = form.cleaned_data['user_role']
 
+            # Login credentials in the default User table
             user.first_name = name
             user.set_password(password)
             user.save()
+
+            # Other user details
+            userDetail = UserDetail()
+            userDetail.user_name = username
+            userDetail.user_role = user_role
+            userDetail.email = email
+            userDetail.name = name
+            userDetail.save()
+
             return redirect('user:login')
-            # To change password - user.set_password(password)
-
-            user = authenticate(username=username, password=password)
-
-            if user is not None:
-                if user.is_active:
-                    return redirect('user:login')
-                    #This is logs in with session handling
-                    #User request.user to get info
 
         return render(request, self.template_name, {'form': form})
+
+
+def logoutView(request):
+    print "Logging out"
+    logout(request)
+    print request.user.is_authenticated()
+    return redirect('user:login')

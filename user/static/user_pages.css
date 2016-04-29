@@ -226,3 +226,17 @@ ul.alert-dropdown {
 .table-row-color {
     background-color: aquamarine;
 }
+
+#map_wrapper {
+    height: 400px;
+}
+
+#map_canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.roundedge {
+    border: 1px solid;
+    border-radius: 10px;
+}

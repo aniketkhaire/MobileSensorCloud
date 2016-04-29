@@ -5,6 +5,6 @@ app_name = 'monitor'
 
 urlpatterns = [
 
-    url(r'^monitor$', views.monitor, name='monitor'),
+    url(r'^monitor$', views.ShowMonitorView.as_view(), name='monitor'),
     #url(r'^(?P<pk>[0-9]+)/$', views.sensorDataView, name='sensor-data'),
 ]

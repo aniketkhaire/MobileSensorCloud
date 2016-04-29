@@ -20,11 +20,15 @@ def get_client():
     )
 
 
-def query(query, time_precision='s', chunked=False):
+#def query(query, time_precision='s', chunked=False):
+ #   """Wrapper around ``InfluxDBClient.query()``."""
+  #  client = get_client()
+  #  return client.query(query, time_precision=time_precision, chunked=chunked)
+
+def query(query):
     """Wrapper around ``InfluxDBClient.query()``."""
     client = get_client()
-    return client.query(query, time_precision=time_precision, chunked=chunked)
-
+    return client.query(query)
 
 def write_points(data, force_disable_threading=False):
     """

@@ -1,0 +1,34 @@
+<table id="sensor-list" class="table table-bordered">
+    <thead>
+        <tr>
+             <th>Sensor ID</th>
+            <th>Type</th>
+            <th>Unit</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if available_sensors %}
+        {% for sensor in available_sensors %}
+            <tr class="clickable-row" id="{{ forloop.counter }}">
+                <td>{{ sensor.sensor_id }}</td>
+                <td>{{ sensor.sensor_type }}</td>
+                <td>{{ sensor.sensor_unit }}</td>
+                <td>{{ sensor.station_desc }}</td>
+                <td>{{ sensor.location }}</td>
+                <td>{{ sensor.latitude }}</td>
+                <td>{{ sensor.longitude }}</td>
+                {% if sensor.active %}
+                    <td class="text-success"><strong>Active</strong></td>
+                {% else %}
+                    <td class="text-danger"><strong>Inactive</strong></td>
+                {% endif %}
+           </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+</table>

@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     'user.apps.UserLoginConfig',
     'dashboard.apps.DashboardConfig',
     'monitor.apps.MonitorConfig',
-    'manageSensors.apps.ManagesensorsConfig',
+    'manage_sensors.apps.ManagesensorsConfig',
+    'sensor_owner.apps.SensorOwnerConfig',
+    'sensor_admin.apps.SensorAdminConfig',
     'influxdb_metrics',
+    'smart_selects',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -80,10 +83,21 @@ WSGI_APPLICATION = 'MobileSensorCloud.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'SensorCloud',
+        'USER': 'rootuser',
+        'PASSWORD': 'rootuser',
+        'HOST': 'cloud281.cs2kfu8tvhuk.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
 
@@ -144,3 +158,5 @@ INFLUXDB_USE_CELERY = False
 
 # Set this to True if you are not using Celery
 INFLUXDB_USE_THREADING = False
+
+USE_DJANGO_JQUERY = False

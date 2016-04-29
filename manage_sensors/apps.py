@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class ManagesensorsConfig(AppConfig):
-    name = 'manageSensors'
+    name = 'manage_sensors'
